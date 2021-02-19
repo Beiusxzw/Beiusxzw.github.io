@@ -45,7 +45,7 @@
         </div>
     </header>
     <div class="wrapper">
-        <div class="card" style="padding:10%;">
+        <div class="card" style="padding:10%;width:auto;">
             <h1>Parallel Computation while dealing with Alignment Files</h1>
             <p>没错，这是第一篇稍微有点硬核的生信技术blog! 最近在用python处理bam文件的时候，希望通过并行计算多线程处理每一条reads。由于用的是<code>pysam</code>(一个python wrapper for <code>samtools</code>)，所以用python自带的multiprocessing.Pool.map是不能处理pysam的AlignmentFile object的。于是，自己写了一个非常简单的MapReduce去实现我的多线程计算目标</p>
             <h2>MapReduce</h2>
@@ -53,7 +53,7 @@
                 <p><strong>MapReduce</strong> is a programming model and an associated implementation for processing and generating <a href='https://en.wikipedia.org/wiki/Big_data'>big data</a> sets with a parallel, distributedalgorithm on a cluster.</p>
             </blockquote>
             <p>MapReduce 是一个的并行计算的编程模型，简单地说就是把任务分成很多块，然后最后再把每一块并行计算的结果合并起来输出。我写的这个mapReduce功能非常简单，就是把一个iterable分成好几块，然后分别计算输出就行了</p>
-            <p><img src="https://www.folio3.ai/wp-content/uploads/2019/04/hadoop-architecture.png" referrerpolicy="no-referrer" alt="Understanding MapReduce with Hadoop - Folio3 AI"></p>
+            <p><img src="https://www.folio3.ai/wp-content/uploads/2019/04/hadoop-architecture.png" referrerpolicy="no-referrer" alt="Understanding MapReduce with Hadoop - Folio3 AI" style="zoom: 0.7;"></p>
             <pre><code class='language-python' lang='python'>from multiprocessing import Process, Manager, Queue
 import time
 

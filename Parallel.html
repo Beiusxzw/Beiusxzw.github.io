@@ -46,6 +46,178 @@
     </header>
     <div class="wrapper">
         <div class="card" style="padding:10%;">
+            <h1>Parallel Computation while dealing with Alignment Files</h1>
+            <p>没错，这是第一篇稍微有点硬核的生信技术blog! 最近在用python处理bam文件的时候，希望通过并行计算多线程处理每一条reads。由于用的是<code>pysam</code>(一个python wrapper for <code>samtools</code>)，所以用python自带的multiprocessing.Pool.map是不能处理pysam的AlignmentFile object的。于是，自己写了一个非常简单的MapReduce去实现我的多线程计算目标</p>
+            <h2>MapReduce</h2>
+            <blockquote>
+                <p><strong>MapReduce</strong> is a programming model and an associated implementation for processing and generating <a href='https://en.wikipedia.org/wiki/Big_data'>big data</a> sets with a parallel, distributedalgorithm on a cluster.</p>
+            </blockquote>
+            <p>MapReduce 是一个的并行计算的编程模型，简单地说就是把任务分成很多块，然后最后再把每一块并行计算的结果合并起来输出。我写的这个mapReduce功能非常简单，就是把一个iterable分成好几块，然后分别计算输出就行了</p>
+            <p><img src="https://www.folio3.ai/wp-content/uploads/2019/04/hadoop-architecture.png" referrerpolicy="no-referrer" alt="Understanding MapReduce with Hadoop - Folio3 AI"></p>
+            <pre><code class='language-python' lang='python'>from multiprocessing import Process, Manager, Queue
+import time
+
+class MapReduce(object):
+	def __init__(self,  map_func, reduce_func, pool=None, chunk_size=None, num_workers=12):
+		super(MapReduce, self).__init__()
+		&quot;&quot;&quot;
+		class MapReduce: implementation of parallel computation using map-reduce
+		@args map_func: map function for map-reduce. The function maps an iterable object and returns a mapped list
+		@args reduce_func: reduce function for map-reduce. The function reduces the mapped iterable and returns the final result
+		@args pool: optional. Possibly Pool from multiprocessing module or pathos.multiprocessing
+		@args chunk_size: chunk size for the partition of the list, if provided
+		@args num_workers: number of threads to use
+		&quot;&quot;&quot;
+		self.map_func = map_func
+		self.reduce_func = reduce_func
+		self.chunk_size = chunk_size
+		self.Pool = pool
+
+	def partition(self, iterable):
+		print(&quot;total length: {}&quot;.format(len(iterable)))
+		return [iterable[x:x+self.chunk_size] for x in range(0, len(iterable), self.chunk_size)]
+
+	def sync_map_reduce(self, iterable):
+		&quot;&quot;&quot;
+		For testing map_func and reduce_func
+		@args iterable to be mapped
+		@return reduced result, synchronously
+		&quot;&quot;&quot;
+		if len(iterable) &gt; self.chunk_size:
+			return self.reduce_func(self.sync_map_reduce(iterable[:int(len(iterable)/2)]),
+									self.sync_map_reduce(iterable[int(len(iterable)/2):]))
+		else:
+			return self.map_func(iterable)
+
+	def par_map_reduce(self, iterable, partition=False):
+		&quot;&quot;&quot;
+		Parallel implementation of mapReduce using map method from multiprocessing.Pool
+		@args iterable to be mapped
+		@returns the reduce result of the input iterable
+		&quot;&quot;&quot;
+		if partition:
+			iterable = self.partition(iterable)
+		start = time.time()
+		result = self.Pool.map(self.map_func, iterable)
+		return self.reduce_func(result)
+
+	def map_func_wrap(self, procnum, return_dict, *args):
+		&quot;&quot;&quot;
+		Wrapper for the map function. A return_dict should be referenced such that the result will be temporally saved
+		&quot;&quot;&quot;
+		return_dict[procnum] = self.map_func(*args)
+
+	def proc_map_reduce(self, iterable, partition=False):
+		&quot;&quot;&quot;
+		Parallel implementation of mapReduce using multiprocessing.Process
+		&quot;&quot;&quot;
+		if partition:
+			iterable = self.partition(iterable)
+		manager = Manager()
+		return_dict = manager.dict()
+		proc_queue = []
+		for proc,i in enumerate(iterable):
+			p = Process(target=self.map_func_wrap, args=(proc, return_dict,i))
+			p.Daemon = True
+			p.start()
+			proc_queue.append(p)
+		for p in proc_queue:
+			p.join()
+		while True:
+			if any(proc.is_alive() for proc in proc_queue):
+				time.sleep(1)
+			else:
+				return self.reduce_func(return_dict.values())
+
+	def proc_map(self, iterable, partition=False):
+		&quot;&quot;&quot;
+		No reduce
+		&quot;&quot;&quot;
+		if partition:
+			iterable = self.partition(iterable)
+		manager = Manager()
+		return_dict = manager.dict()
+		proc_queue = []
+		for proc,i in enumerate(iterable):
+			p = Process(target=self.map_func_wrap, args=(proc, return_dict,i))
+			p.Daemon = True
+			p.start()
+			proc_queue.append(p)
+		for p in proc_queue:
+			p.join()
+		while True:
+			if any(proc.is_alive() for proc in proc_queue):
+				time.sleep(1)
+			else:
+				return list(return_dict.values())
+</code></pre>
+            <p>首先我们要有一个<code>map function</code>: 就是对于每一个分区的数据要如何去处理。比如说</p>
+            <pre><code class='language-python' lang='python'>def map_function(x):
+	return x+1
+</code></pre>
+            <p>就可以是一个非常简单的map function</p>
+            <p>最后我们要有一个<code>reduce function</code>：对于map的结果，我们要如何去合并。比如说</p>
+            <pre><code class='language-python' lang='python'>def reduce_function(iter):
+	return sum(iter)
+</code></pre>
+            <p>就可以是一个非常简单的reduce function</p>
+            <pre><code class='language-python' lang='python'>def sync_map_reduce(self, iterable):
+	&quot;&quot;&quot;
+	For testing map_func and reduce_func
+	@args iterable to be mapped
+	@return reduced result, synchronously
+	&quot;&quot;&quot;
+	if len(iterable) &gt; self.chunk_size:
+		return self.reduce_func(self.sync_map_reduce(iterable[:int(len(iterable)/2)]),
+								self.sync_map_reduce(iterable[int(len(iterable)/2):]))
+	else:
+		return self.map_func(iterable)
+</code></pre>
+            <p>测试一下，单线程计算mapreduce结果是ok的</p>
+            <pre><code class='language-python' lang='python'>def par_map_reduce(self, iterable, partition=False):
+	&quot;&quot;&quot;
+	Parallel implementation of mapReduce using map method from multiprocessing.Pool
+	@args iterable to be mapped
+	@returns the reduce result of the input iterable
+	&quot;&quot;&quot;
+	if partition:
+		iterable = self.partition(iterable)
+	start = time.time()
+	result = self.Pool.map(self.map_func, iterable)
+	return self.reduce_func(result)
+</code></pre>
+            <p>一开始尝试用<code>multiprocessing.Pool</code>里的<code>map</code>function 去实现map reduce，结果发现拷贝data到每一个线程的开销是在太大了，对于成千上万条reads肯定不合适。于是就自己手动写一个调配现成的function吧</p>
+            <pre><code class='language-python' lang='python'>def map_func_wrap(self, procnum, return_dict, *args):
+	&quot;&quot;&quot;
+	Wrapper for the map function. A return_dict should be referenced such that the result will be temporally saved
+	&quot;&quot;&quot;
+	return_dict[procnum] = self.map_func(*args)
+
+def proc_map_reduce(self, iterable, partition=False):
+	&quot;&quot;&quot;
+	Parallel implementation of mapReduce using multiprocessing.Process
+	&quot;&quot;&quot;
+	if partition:
+		iterable = self.partition(iterable)
+	manager = Manager()
+	return_dict = manager.dict()
+	proc_queue = []
+	for proc,i in enumerate(iterable):
+		p = Process(target=self.map_func_wrap, args=(proc, return_dict,i))
+		p.Daemon = True
+		p.start()
+		proc_queue.append(p)
+	for p in proc_queue:
+		p.join()
+	while True:
+		if any(proc.is_alive() for proc in proc_queue):
+			time.sleep(1)
+		else:
+			return self.reduce_func(return_dict.values())
+</code></pre>
+            <p>我们可以用<code>multiprocessing.Manager</code>里的线程安全的dictionary去储存每一个区间的结果，然后通过一个<code>map_func_wrap</code>去吧map function输出的结果传入这个dictionary。</p>
+            <p>于是，到这里一个功能非常简单的MapReduce就实现了。调用起来非常方便，可以结合<code>functools.partial</code>去根据不同参数去魔改我们事先定义的map function或者reduce function。</p>
+            <p>&nbsp;</p>
         </div>
     </div>
     <br>

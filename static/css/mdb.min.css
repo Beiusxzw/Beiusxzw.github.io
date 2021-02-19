@@ -9560,6 +9560,7 @@ table.table a.btn.btn-black {
     .navbar.scrolling-navbar.top-nav-collapse {
         padding-top: .5px;
         padding-bottom: .5px;
+        border-color: #dee2e6;
         transition: 1s cubic-bezier(0.785, 0.135, 0.15, 0.86)
     }
 }

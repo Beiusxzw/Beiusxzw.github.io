@@ -1,12 +1,17 @@
 $(document).ready(function() {
 
     function checkOffset() {
-        if ($(".fixed-top").offset().top > 80) {
+        if ($(".fixed-top").offset().top > 100) {
             $(".fixed-top").addClass("top-nav-collapse");
-            $(".fixed-top").addClass("border-bottom");
+            setTimeout(function() {
+                $(".fixed-top").addClass("border-bottom");
+            }, 1000);
+
         } else {
             $(".fixed-top").removeClass("top-nav-collapse");
-            $(".fixed-top").removeClass("border-bottom");
+            setTimeout(function() {
+                $(".fixed-top").removeClass("border-bottom")
+            }, 1000);
         }
     }
     checkOffset();

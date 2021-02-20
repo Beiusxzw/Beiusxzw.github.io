@@ -22,14 +22,14 @@ iframe {
     height: 100%;
     border-width: 0rem;
     border-radius: 10%;
-    border-color: #262626;
+    border-color: #3A4C68;
     transition: height .5s cubic-bezier(0.6, -0.28, 0.735, 0.045);
     background-color: white
 }
 
 .footer-bg {
     width: 110% !important;
-    background-color: #262626 !important;
+    background-color: #3A4C68 !important;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important
 }
 
@@ -89,9 +89,9 @@ iframe {
     padding: 0;
     width: 250px;
     height: 70px;
-    border: 4px solid #262626;
+    border: 4px solid #3A4C68;
     border-radius: 35px;
-    background-color: #262626;
+    background-color: #3A4C68;
     color: #fff;
     cursor: pointer;
     letter-spacing: 1px;
@@ -243,7 +243,7 @@ iframe {
     text-shadow: .8px .8px #777;
     width: 3rem !important;
     height: 1rem;
-    background-color: #262626;
+    background-color: #3A4C68;
     color: white;
     text-align: center;
     border-radius: 5rem;
@@ -257,7 +257,7 @@ iframe {
     text-shadow: .8px .8px #777;
     width: 4rem !important;
     height: 1rem;
-    background-color: #262626;
+    background-color: #3A4C68;
     color: white;
     text-align: center;
     border-radius: 5rem;
@@ -271,7 +271,7 @@ iframe {
     text-shadow: .8px .8px #777;
     width: 5rem !important;
     height: 1rem;
-    background-color: #262626;
+    background-color: #3A4C68;
     color: white;
     text-align: center;
     border-radius: 5rem;

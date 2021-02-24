@@ -8,12 +8,11 @@
 
 
     <script src="./static/js/jquery3.4.1.min.js"></script>
-    <script src="./static/js/min.js"></script>
     <script src="./static/js/bootstrap.bundle.min.js"></script>
     <script src="./static/js/highlight.pack.js"></script>
 
     <link href="./static/css/base.css" rel="stylesheet">
-    <link href="./static/css/styles/atelier-sulphurpool-light.css" rel="stylesheet">
+    <link href="./static/css/styles/a11y-light.css" rel="stylesheet">
     <link href="./static/css/min.css" rel="stylesheet">
     <link href="./static/css/bootstrap.min.css" rel="stylesheet">
     <link href="./static/css/mdb.min.css" rel="stylesheet">
@@ -21,23 +20,19 @@
     <script>
         hljs.initHighlightingOnLoad();
     </script>
-    <style>
-        iframe {
-            margin-top: 3rem;
-            width: 100%;
-            height: 20rem;
-            border-width: 0rem;
-        }
-    </style>
 </head>
+<div class="sidebar">
+    <div class="docs-menu">
+    </div>
+</div>
 
 <body id="page-top" style="overflow-x: hidden;">
     <header>
         <div>
-            <nav class="navbar fixed-top navbar-expand-md  scrolling-navbar navbar-light white">
+            <nav class="navbar fixed-top navbar-expand-md  scrolling-navbar navbar-dark" style="background-color: #3A4C68;height: 3rem;">
 
                 <div class="navbar-nav ml-auto" style="margin-right: 10rem;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: 800;font-size: large;">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-collapse" id="navbarSupportedContent">
                         <div class="animated--grow-in" style="margin-right: 2rem;">
                             <a class="nav-link animated--grow-in" href="./index.html#About"><span><strong>About</strong></span></a>
                         </div>
@@ -47,13 +42,17 @@
                         <div class="animated--grow-in" style="margin-right: 2rem;">
                             <a class="nav-link animated--grow-in " href="./blogs.html"><span><strong>Blogs</strong></span></a>
                         </div>
+                        <div class="animated--grow-in navbar-brand">
+                            <img src="./static/imgs/Blogs_logo.png" style="zoom: 0.1;">
+                        </div>
                     </div>
                 </div>
             </nav>
         </div>
     </header>
-    <div class="wrapper">
-        <div class="card" style="padding:10%;">
+
+    <div class="wrapper more-margin">
+        <div style="padding:10%;">
 
             <body>
                 <h1>Plotly in Python</h1>
@@ -89,6 +88,8 @@ fig2.add_trace(data = Bar(x=df.A,y=df.B))
                         <b>fig2</b>
                     </div>
                 </div>
+                <br>
+                <br>
                 <br>
                 <p>There are also other graphs types in the plotly graphing library including Pie charts, Bubble charts, Heatmaps, 3D charts, etc. A more concrete tutorial are available in <a href='https://plotly.com/python/' target='_blank' class='url'>https://plotly.com/python/</a>.
                     We will now move to Dash, a powerful tool to incorporate the figure to webpages.</p>
@@ -186,47 +187,62 @@ app.run_server(host=&quot;127.0.0.1&quot;, port=5050)
                 <br>
                 <br>
         </div>
-    </div>
-    <br>
-    <div class="footer-bg ">
-        <div class="footer text-center text-white " style="margin-right:10%;">
-            <!--First column-->
+        <div class="footer-bg-light">
+            <div class="footer text-center " style="margin-right:10%;">
+                <!--First column-->
 
 
-            <!--Social buttons-->
-
-            <br>
-            <div class="footer">
+                <!--Social buttons-->
 
                 <br>
-                <br>
+                <div class="footer">
 
-                <strong class="text-white "> 
+                    <br>
+                    <br>
 
-						Personal e-mail: <a href="mailto:xueziweisz@gmail.com " class="link-in-text-white ">  xueziweisz@gmail.com</a><br>
-						Instute e-mail: <a href="mailto:ziwei.17@intl.zju.edu.cn " class="link-in-text-white ">  ziwei.17@intl.zju.edu.cn</a>
+                    <strong> 
 
-					</strong>
-                <br>
-                <br>
-                <div class=" list-unstyled list-inline ">
+        Personal e-mail: <a href="mailto:xueziweisz@gmail.com " class="link-in-text-white ">  xueziweisz@gmail.com</a><br>
+        Instute e-mail: <a href="mailto:ziwei.17@intl.zju.edu.cn " class="link-in-text-white ">  ziwei.17@intl.zju.edu.cn</a>
 
-                    <li class="list-inline-item "><a class="btn-floating btn-tw" href="https://twitter.com/xueziweisz "><i class="fab fa-twitter text-white "> </i></a></li>
-                    <li class="list-inline-item "><a class="btn-floating btn-gplus" href="mailto:xueziweisz@gmail.com "><i class="fab fa-google-plus-g text-white "> </i></a></li>
-                    <li class="list-inline-item "><a class="btn-floating btn-git" href="https://github.com/Beiusxzw "><i class="fab fa-github text-white "> </i></a></li>
+      </strong>
+                    <br>
+                    <br>
+                    <div class=" list-unstyled list-inline ">
+
+                        <li class="list-inline-item "><a class="btn-floating btn-tw" href="https://twitter.com/xueziweisz "><i class="fab fa-twitter "> </i></a></li>
+                        <li class="list-inline-item "><a class="btn-floating btn-gplus" href="mailto:xueziweisz@gmail.com "><i class="fab fa-google-plus-g "> </i></a></li>
+                        <li class="list-inline-item "><a class="btn-floating btn-git" href="https://github.com/Beiusxzw "><i class="fab fa-github "> </i></a></li>
+                    </div>
                 </div>
+                <br>
+                <br>
+                <div class="footer-copyright ">
+                    Copyright © 2020 Snow
+                </div>
+                <br>
+                <br>
+                <br>
             </div>
-            <br>
-            <br>
-            <div class="footer-copyright ">
-                Copyright © 2020 Snow
-            </div>
-            <br>
-            <br>
-            <br>
-        </div>
 
+        </div>
     </div>
     </body>
+    <script>
+        $(".wrapper").find("h1,h2,h3,h4,h5,h6").each(function(i, item) {
+            var tag = $(item).get(0).nodeName.toLowerCase();
+            $(item).attr("id", "h" + i);
+            $(".docs-menu").append('<li><a class="title-' + tag + ' sidebar-link" href="#h' + i + '">' + $(this).text() + '</a></li>');
+            $(".title-h1");
+            $(".title-h2");
+            $(".title-h3");
+            $(".title-h4");
+        });
+        $(".sidebar-link").click(function() {
+            $("html,body").animate({
+                scrollTop: $($(this).attr("link")).offset().top
+            }, 600);
+        })
+    </script>
 
 </html>

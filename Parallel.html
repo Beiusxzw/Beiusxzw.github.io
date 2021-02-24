@@ -8,12 +8,11 @@
 
 
     <script src="./static/js/jquery3.4.1.min.js"></script>
-    <script src="./static/js/min.js"></script>
     <script src="./static/js/bootstrap.bundle.min.js"></script>
     <script src="./static/js/highlight.pack.js"></script>
 
     <link href="./static/css/base.css" rel="stylesheet">
-    <link href="./static/css/styles/atelier-dune-light.css" rel="stylesheet">
+    <link href="./static/css/styles/a11y-light.css" rel="stylesheet">
     <link href="./static/css/min.css" rel="stylesheet">
     <link href="./static/css/bootstrap.min.css" rel="stylesheet">
     <link href="./static/css/mdb.min.css" rel="stylesheet">
@@ -22,14 +21,18 @@
         hljs.initHighlightingOnLoad();
     </script>
 </head>
+<div class="sidebar">
+    <div class="docs-menu">
+    </div>
+</div>
 
 <body id="page-top" style="overflow-x: hidden;">
     <header>
         <div>
-            <nav class="navbar fixed-top navbar-expand-md  scrolling-navbar navbar-light white">
+            <nav class="navbar fixed-top navbar-expand-md  scrolling-navbar navbar-dark" style="background-color: #3A4C68;height: 3rem;">
 
                 <div class="navbar-nav ml-auto" style="margin-right: 10rem;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: 800;font-size: large;">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-collapse" id="navbarSupportedContent">
                         <div class="animated--grow-in" style="margin-right: 2rem;">
                             <a class="nav-link animated--grow-in" href="./index.html#About"><span><strong>About</strong></span></a>
                         </div>
@@ -39,13 +42,17 @@
                         <div class="animated--grow-in" style="margin-right: 2rem;">
                             <a class="nav-link animated--grow-in " href="./blogs.html"><span><strong>Blogs</strong></span></a>
                         </div>
+                        <div class="animated--grow-in navbar-brand">
+                            <img src="./static/imgs/Blogs_logo.png" style="zoom: 0.1;">
+                        </div>
                     </div>
                 </div>
             </nav>
         </div>
     </header>
-    <div class="wrapper">
-        <div class="card" style="padding:10%;width:auto;">
+
+    <div class="wrapper more-margin">
+        <div style="padding:10%;">
             <h1>Parallel Computation while dealing with Alignment Files</h1>
             <p>没错，这是第一篇稍微有点硬核的生信技术blog! 最近在用python处理bam文件的时候，希望通过并行计算多线程处理每一条reads。由于用的是<code>pysam</code>(一个python wrapper for <code>samtools</code>)，所以用python自带的multiprocessing.Pool.map是不能处理pysam的AlignmentFile object的。于是，自己写了一个非常简单的MapReduce去实现我的多线程计算目标</p>
             <h2>MapReduce</h2>
@@ -218,47 +225,63 @@ def proc_map_reduce(self, iterable, partition=False):
             <p>我们可以用<code>multiprocessing.Manager</code>里的线程安全的dictionary去储存每一个区间的结果，然后通过一个<code>map_func_wrap</code>去吧map function输出的结果传入这个dictionary。</p>
             <p>于是，到这里一个功能非常简单的MapReduce就实现了。调用起来非常方便，可以结合<code>functools.partial</code>去根据不同参数去魔改我们事先定义的map function或者reduce function。</p>
             <p>&nbsp;</p>
-        </div>
-    </div>
-    <br>
-    <div class="footer-bg ">
-        <div class="footer text-center text-white " style="margin-right:10%;">
-            <!--First column-->
+
+            <div class="footer-bg-light">
+                <div class="footer text-center " style="margin-right:10%;">
+                    <!--First column-->
 
 
-            <!--Social buttons-->
+                    <!--Social buttons-->
 
-            <br>
-            <div class="footer">
+                    <br>
+                    <div class="footer">
 
-                <br>
-                <br>
+                        <br>
+                        <br>
 
-                <strong class="text-white "> 
+                        <strong> 
+	
+			Personal e-mail: <a href="mailto:xueziweisz@gmail.com " class="link-in-text-white ">  xueziweisz@gmail.com</a><br>
+			Instute e-mail: <a href="mailto:ziwei.17@intl.zju.edu.cn " class="link-in-text-white ">  ziwei.17@intl.zju.edu.cn</a>
+	
+		  </strong>
+                        <br>
+                        <br>
+                        <div class=" list-unstyled list-inline ">
 
-						Personal e-mail: <a href="mailto:xueziweisz@gmail.com " class="link-in-text-white ">  xueziweisz@gmail.com</a><br>
-						Instute e-mail: <a href="mailto:ziwei.17@intl.zju.edu.cn " class="link-in-text-white ">  ziwei.17@intl.zju.edu.cn</a>
-
-					</strong>
-                <br>
-                <br>
-                <div class=" list-unstyled list-inline ">
-
-                    <li class="list-inline-item "><a class="btn-floating btn-tw" href="https://twitter.com/xueziweisz "><i class="fab fa-twitter text-white "> </i></a></li>
-                    <li class="list-inline-item "><a class="btn-floating btn-gplus" href="mailto:xueziweisz@gmail.com "><i class="fab fa-google-plus-g text-white "> </i></a></li>
-                    <li class="list-inline-item "><a class="btn-floating btn-git" href="https://github.com/Beiusxzw "><i class="fab fa-github text-white "> </i></a></li>
+                            <li class="list-inline-item "><a class="btn-floating btn-tw" href="https://twitter.com/xueziweisz "><i class="fab fa-twitter "> </i></a></li>
+                            <li class="list-inline-item "><a class="btn-floating btn-gplus" href="mailto:xueziweisz@gmail.com "><i class="fab fa-google-plus-g "> </i></a></li>
+                            <li class="list-inline-item "><a class="btn-floating btn-git" href="https://github.com/Beiusxzw "><i class="fab fa-github "> </i></a></li>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="footer-copyright ">
+                        Copyright © 2020 Snow
+                    </div>
+                    <br>
+                    <br>
+                    <br>
                 </div>
-            </div>
-            <br>
-            <br>
-            <div class="footer-copyright ">
-                Copyright © 2020 Snow
-            </div>
-            <br>
-            <br>
-            <br>
-        </div>
 
-    </div>
+            </div>
+        </div>
+</body>
+<script>
+    $(".wrapper").find("h1,h2,h3,h4,h5,h6").each(function(i, item) {
+        var tag = $(item).get(0).nodeName.toLowerCase();
+        $(item).attr("id", "h" + i);
+        $(".docs-menu").append('<li><a class="title-' + tag + ' sidebar-link" href="#h' + i + '">' + $(this).text() + '</a></li>');
+        $(".title-h1");
+        $(".title-h2");
+        $(".title-h3");
+        $(".title-h4");
+    });
+    $(".sidebar-link").click(function() {
+        $("html,body").animate({
+            scrollTop: $($(this).attr("link")).offset().top
+        }, 600);
+    })
+</script>
 
 </html>

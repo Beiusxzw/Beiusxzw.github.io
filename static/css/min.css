@@ -8,6 +8,11 @@ html {
     margin-right: 20%
 }
 
+.more-margin {
+    margin-left: 30%;
+    margin-right: 10%
+}
+
 .link_in_text {
     color: #027bff
 }
@@ -30,7 +35,21 @@ iframe {
 .footer-bg {
     width: 110% !important;
     background-color: #3A4C68 !important;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+    position: relative;
+    z-index: 1010;
+}
+
+.footer-bg-light {
+    width: 110% !important;
+    color: #777 !important;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+    position: relative;
+    z-index: 1010;
+}
+
+.footer-bg-light a {
+    color: #777!important;
 }
 
 .link-in-text-white {
@@ -306,4 +325,59 @@ iframe {
     height: 12px;
     border: 1px solid var(--color-repo-language-color-border);
     border-radius: 50%
+}
+
+.sidebar {
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    right: 2;
+    left: 0;
+    z-index: 1000;
+    height: 50rem;
+    width: 25rem;
+    padding-left: 2rem;
+    padding-bottom: 5rem;
+    background-color: #F5F8FA;
+    border-right: 1pt;
+    border-color: #EAECF0;
+}
+
+.docs-menu {
+    margin-top: 5rem;
+    list-style: none;
+}
+
+.title-h1 {
+    font-size: 16pt;
+    color: #000
+}
+
+.title-h2 {
+    font-size: 13pt;
+    font-weight: 600;
+}
+
+.title-h3 {
+    font-size: 11pt;
+    margin-left: 10pt;
+    color: #777;
+}
+
+.title-h4 {
+    font-size: 11pt;
+    margin-left: 13pt;
+    color: #777;
+}
+
+.title-h5 {
+    font-size: 11pt;
+    margin-left: 16pt;
+    color: #777;
+}
+
+.title-h6 {
+    font-size: 11pt;
+    margin-left: 19pt;
+    color: #777;
 }

@@ -4,16 +4,15 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width initial-scale=1'>
-    <title>Awk</title>
+    <title>Parallel</title>
 
 
     <script src="./static/js/jquery3.4.1.min.js"></script>
-    <script src="./static/js/min.js"></script>
     <script src="./static/js/bootstrap.bundle.min.js"></script>
     <script src="./static/js/highlight.pack.js"></script>
 
     <link href="./static/css/base.css" rel="stylesheet">
-    <link href="./static/css/styles/atelier-dune-light.css" rel="stylesheet">
+    <link href="./static/css/styles/a11y-light.css" rel="stylesheet">
     <link href="./static/css/min.css" rel="stylesheet">
     <link href="./static/css/bootstrap.min.css" rel="stylesheet">
     <link href="./static/css/mdb.min.css" rel="stylesheet">
@@ -22,14 +21,18 @@
         hljs.initHighlightingOnLoad();
     </script>
 </head>
+<div class="sidebar">
+    <div class="docs-menu">
+    </div>
+</div>
 
 <body id="page-top" style="overflow-x: hidden;">
     <header>
         <div>
-            <nav class="navbar fixed-top navbar-expand-md  scrolling-navbar navbar-light white">
+            <nav class="navbar fixed-top navbar-expand-md  scrolling-navbar navbar-dark" style="background-color: #3A4C68;height: 3rem;">
 
                 <div class="navbar-nav ml-auto" style="margin-right: 10rem;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: 800;font-size: large;">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-collapse" id="navbarSupportedContent">
                         <div class="animated--grow-in" style="margin-right: 2rem;">
                             <a class="nav-link animated--grow-in" href="./index.html#About"><span><strong>About</strong></span></a>
                         </div>
@@ -39,13 +42,17 @@
                         <div class="animated--grow-in" style="margin-right: 2rem;">
                             <a class="nav-link animated--grow-in " href="./blogs.html"><span><strong>Blogs</strong></span></a>
                         </div>
+                        <div class="animated--grow-in navbar-brand">
+                            <img src="./static/imgs/Blogs_logo.png" style="zoom: 0.1;">
+                        </div>
                     </div>
                 </div>
             </nav>
         </div>
     </header>
-    <div class="wrapper">
-        <div class="card" style="padding:10%;">
+
+    <div class="wrapper more-margin">
+        <div style="padding:10%;">
             <h1>Metaprogramming in Python</h1>
             <p><strong>Reference: David Beazly &amp; Brian K. Jones (2013) Python cookbook Chater 9 Metaprogramming</strong></p>
             <p> testing python version: 3.7.2 </p>
@@ -272,47 +279,63 @@ class MultiMeta(type):
             <p>In summary, using <code>__prepare__()</code>, <code>__call__()</code>, <code>__new__()</code> and other methods in metaprogramming, we can modify our class to achieve many purpose.</p>
             <p>&nbsp;</p>
         </div>
-    </div>
-    <br>
-    <div class="footer-bg ">
-        <div class="footer text-center text-white " style="margin-right:10%;">
-            <!--First column-->
+
+        <div class="footer-bg-light">
+            <div class="footer text-center " style="margin-right:10%;">
+                <!--First column-->
 
 
-            <!--Social buttons-->
-
-            <br>
-            <div class="footer">
+                <!--Social buttons-->
 
                 <br>
-                <br>
+                <div class="footer">
 
-                <strong class="text-white "> 
+                    <br>
+                    <br>
 
-						Personal e-mail: <a href="mailto:xueziweisz@gmail.com " class="link-in-text-white ">  xueziweisz@gmail.com</a><br>
-						Instute e-mail: <a href="mailto:ziwei.17@intl.zju.edu.cn " class="link-in-text-white ">  ziwei.17@intl.zju.edu.cn</a>
+                    <strong> 
 
-					</strong>
-                <br>
-                <br>
-                <div class=" list-unstyled list-inline ">
+      Personal e-mail: <a href="mailto:xueziweisz@gmail.com " class="link-in-text-white ">  xueziweisz@gmail.com</a><br>
+      Instute e-mail: <a href="mailto:ziwei.17@intl.zju.edu.cn " class="link-in-text-white ">  ziwei.17@intl.zju.edu.cn</a>
 
-                    <li class="list-inline-item "><a class="btn-floating btn-tw" href="https://twitter.com/xueziweisz "><i class="fab fa-twitter text-white "> </i></a></li>
-                    <li class="list-inline-item "><a class="btn-floating btn-gplus" href="mailto:xueziweisz@gmail.com "><i class="fab fa-google-plus-g text-white "> </i></a></li>
-                    <li class="list-inline-item "><a class="btn-floating btn-git" href="https://github.com/Beiusxzw "><i class="fab fa-github text-white "> </i></a></li>
+    </strong>
+                    <br>
+                    <br>
+                    <div class=" list-unstyled list-inline ">
+
+                        <li class="list-inline-item "><a class="btn-floating btn-tw" href="https://twitter.com/xueziweisz "><i class="fab fa-twitter "> </i></a></li>
+                        <li class="list-inline-item "><a class="btn-floating btn-gplus" href="mailto:xueziweisz@gmail.com "><i class="fab fa-google-plus-g "> </i></a></li>
+                        <li class="list-inline-item "><a class="btn-floating btn-git" href="https://github.com/Beiusxzw "><i class="fab fa-github "> </i></a></li>
+                    </div>
                 </div>
+                <br>
+                <br>
+                <div class="footer-copyright ">
+                    Copyright © 2020 Snow
+                </div>
+                <br>
+                <br>
+                <br>
             </div>
-            <br>
-            <br>
-            <div class="footer-copyright ">
-                Copyright © 2020 Snow
-            </div>
-            <br>
-            <br>
-            <br>
-        </div>
 
+        </div>
     </div>
 </body>
+<script>
+    $(".wrapper").find("h1,h2,h3,h4,h5,h6").each(function(i, item) {
+        var tag = $(item).get(0).nodeName.toLowerCase();
+        $(item).attr("id", "h" + i);
+        $(".docs-menu").append('<li><a class="title-' + tag + ' sidebar-link" href="#h' + i + '">' + $(this).text() + '</a></li>');
+        $(".title-h1");
+        $(".title-h2");
+        $(".title-h3");
+        $(".title-h4");
+    });
+    $(".sidebar-link").click(function() {
+        $("html,body").animate({
+            scrollTop: $($(this).attr("link")).offset().top
+        }, 600);
+    })
+</script>
 
 </html>

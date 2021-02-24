@@ -227,7 +227,7 @@ iframe {
 
 .portfolio {
     border-radius: 2rem;
-    background-color: #f9f9f9;
+    background-color: #F5F8FA;
     font-size: 20px;
     font-family: Avenir;
     padding: 5%;
@@ -240,13 +240,12 @@ iframe {
 
 .statusbar1 {
     margin-left: .5rem;
-    text-shadow: .8px .8px #777;
     width: 3rem !important;
     height: 1rem;
     background-color: #3A4C68;
     color: white;
     text-align: center;
-    border-radius: 5rem;
+    border-radius: 5pt;
     font-size: 15px;
     line-height: 1rem;
     font-family: Arial
@@ -254,13 +253,12 @@ iframe {
 
 .statusbar2 {
     margin-left: .5rem;
-    text-shadow: .8px .8px #777;
     width: 4rem !important;
     height: 1rem;
     background-color: #3A4C68;
     color: white;
     text-align: center;
-    border-radius: 5rem;
+    border-radius: 5pt;
     font-size: 15px;
     line-height: 1rem;
     font-family: Arial
@@ -268,13 +266,12 @@ iframe {
 
 .statusbar3 {
     margin-left: .5rem;
-    text-shadow: .8px .8px #777;
     width: 5rem !important;
     height: 1rem;
     background-color: #3A4C68;
     color: white;
     text-align: center;
-    border-radius: 5rem;
+    border-radius: 5pt;
     font-size: 15px;
     line-height: 1rem;
     font-family: Arial
@@ -299,4 +296,14 @@ iframe {
 
 .bottom-border {
     border-bottom: #d7d7d7;
+}
+
+.repo-language-color {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--color-repo-language-color-border);
+    border-radius: 50%
 }

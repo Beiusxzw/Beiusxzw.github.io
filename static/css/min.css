@@ -328,6 +328,7 @@ iframe {
 }
 
 .sidebar {
+    font-family: avenir;
     overflow-y: auto;
     position: fixed;
     top: 0;

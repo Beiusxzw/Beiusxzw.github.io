@@ -1,0 +1,16 @@
+{
+    "workbench.colorCustomizations": {
+        "terminal.foreground" : "#fafafa",
+        "terminal.border": "#fff",
+        "terminal.ansiBlack": "#000",
+        "terminal.ansiBrightWhite": "#ff0000",
+        "terminal.ansiWhite": "#f7f7f7",
+        "workbench.colorTheme": "Dracula At Night"
+    },
+    "launch": {
+
+        "configurations": [],
+        "compounds": []
+    },
+    "workbench.colorTheme": "Dracula At Night"
+}

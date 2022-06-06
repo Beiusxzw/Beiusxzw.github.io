@@ -103,14 +103,15 @@ Header START -->
 										>Notes</a>
 									<ul class="dropdown-menu dropdown-menu-start"
 										data-bs-popper="none">
-										<li> <a class="dropdown-item" href="./linkedlist.html">Linked-List in C</a>
+										<li> <a class="dropdown-item" href="./notes/ccurrying.html">Function Currying in C</a>
 										</li>
-										<li> <a class="dropdown-item"
-												href="./EM.html">EM algorithm notes</a>
+										<li> <a class="dropdown-item" href="./notes/linkedlist.html">Generic LinkedList using offset</a>
 										</li>
-										<li> <a class="dropdown-item"
-											href="./d3bioinfo.html">d3.js in Bioinformatics</a>
-									</li>
+										<li> <a class="dropdown-item" href="./notes/EM.html">EM algorithm notes</a>
+										</li>
+										<li> <a class="dropdown-item" href="./notes/d3bioinfo.html">d3.js in
+												Bioinformatics</a>
+										</li>
 									</ul>
 								</li>
 								<li
@@ -262,13 +263,13 @@ Highlights START -->
 <h2 id='about-d3js'>About d3.js</h2>
 <p><strong>D3.js</strong> is a JavaScript library for manipulating documents based on data. <strong>D3</strong> helps you bring data to life using HTML, SVG, and CSS. D3’s emphasis on web standards gives you the full capabilities
 of modern browsers without tying yourself to a proprietary framework, combining powerful visualization components and a data-driven approach to DOM manipulation.</p>
-<p>Download the latest version (6.7.0) here:</p>
+<p>Download the latest version (7.4.4) here:</p>
 <ul>
-<li><a href='https://github.com/d3/d3/releases/download/v6.7.0/d3.zip'>d3.zip</a></li>
+<li><a href='https://registry.npmjs.org/d3/-/d3-7.4.4.tgz'>d3.tar.gz</a></li>
 
 </ul>
 <p>To link directly to the latest release, copy this snippet:</p>
-<pre><code class='language-html' lang='html'>&lt;script src=&quot;https://d3js.org/d3.v6.min.js&quot;&gt;&lt;/script&gt;
+<pre><code class='language-html' lang='html'>&lt;script src=&quot;https://d3js.org/d3.v7.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <p><strong>D3.js</strong> is able to visualize different types of data. Here is a <a href='https://observablehq.com/@d3/gallery'>gallery</a> of visualizations using <strong>D3</strong>.</p>
 <h2 id='d3-start-up'>D3 start up</h2>
@@ -277,30 +278,30 @@ of modern browsers without tying yourself to a proprietary framework, combining 
 </code></pre>
 <p>Then, we specify the parameters for the D3 chart</p>
 <pre><code class='language-javascript' lang='javascript'>var margin = {
-top: 10,
-right: 30,
-bottom: 30,
-left: 60
+	top: 10,
+	right: 30,
+	bottom: 30,
+	left: 60
 }, 
 width = 400;
 height = 400;
 </code></pre>
 <p>The d3 can bind to the <code>div</code> container and plot the data in the container as follows:</p>
 <pre><code class='language-javascript' lang='javascript'>svg = d3.select(&quot;#tsne&quot;)
-.append(&quot;svg&quot;)
-.attr(&quot;viewBox&quot;, [0, 0, width, height + margin.top + margin.bottom])
-.attr(&quot;width&quot;, width + margin.left + margin.right)
-.attr(&quot;height&quot;, height + margin.top + margin.bottom)
-.append(&quot;g&quot;)
-.attr(&quot;transform&quot;, &quot;translate(&quot; + margin.left + &quot;,&quot; + margin.top + &quot;)&quot;);
+	.append(&quot;svg&quot;)
+	.attr(&quot;viewBox&quot;, [0, 0, width, height + margin.top + margin.bottom])
+	.attr(&quot;width&quot;, width + margin.left + margin.right)
+	.attr(&quot;height&quot;, height + margin.top + margin.bottom)
+	.append(&quot;g&quot;)
+	.attr(&quot;transform&quot;, &quot;translate(&quot; + margin.left + &quot;,&quot; + margin.top + &quot;)&quot;);
 g = svg.append(&quot;g&quot;)
-.attr(&quot;fill&quot;, &quot;none&quot;)
-.attr(&quot;stroke-linecap&quot;, &quot;round&quot;);
+	.attr(&quot;fill&quot;, &quot;none&quot;)
+	.attr(&quot;stroke-linecap&quot;, &quot;round&quot;);
 </code></pre>
 <h2 id='visualizing-the-t-sne-data'>Visualizing the t-SNE data</h2>
 <p>The t-SNE data can be prepared in the CSV format. The first column should be the barcode of the single cell. The second column should be the position of the x-coordinates, and the third column should be the position of the y-coordinates.
 Other attributes can be placed after the third column.</p>
-<p>We adopt a CSV2Array function to convert the data CSV to Javascript array.</p>
+<p>We adopt a <code>CSV2Array</code> function to convert the data CSV to Javascript array.</p>
 <pre><code class='language-javascript' lang='javascript'>// ref: http://stackoverflow.com/a/1293163/2343
 // This will parse a delimited string into an array of
 // arrays. The default delimiter is the comma, but this
@@ -452,29 +453,29 @@ mouseleave(d, i);
 <p>For example, you can add a new <code>div</code> container in your HTML file as a tooltip</p>
 <pre><code class='language-html' lang='html'>&lt;style&gt;
 div.tooltip {	
-position: absolute;			
-text-align: center;			
-width: max-content;		
-height: min-content;					
-padding: 2px;				
-font: 12px sans-serif;		
-background: lightsteelblue;	
-border: 0px;		
-border-radius: 8px;			
-pointer-events: none;			
+	position: absolute;			
+	text-align: center;			
+	width: max-content;		
+	height: min-content;					
+	padding: 2px;				
+	font: 12px sans-serif;		
+	background: lightsteelblue;	
+	border: 0px;		
+	border-radius: 8px;			
+	pointer-events: none;			
 }
 &lt;/style&gt; 
 &lt;div class=&quot;tooltip&quot; id=&quot;tooltip&quot;&gt;
 </code></pre>
 <p>and bind to that container using d3</p>
 <pre><code class='language-javascript' lang='javascript'>tooltip = d3.select(&quot;#tooltip&quot;)
-.append(&quot;div&quot;)
-.style(&quot;opacity&quot;, 1)
-.attr(&quot;class&quot;, &quot;tooltip&quot;)
-.attr(&quot;class&quot;, &quot;card&quot;)
-.attr(&quot;class&quot;, &quot;row&quot;)
-.style(&quot;background-color&quot;, &quot;rgba(0, 0, 0, 0.0)&quot;)
-.style(&quot;padding&quot;, &quot;10px&quot;)
+	.append(&quot;div&quot;)
+	.style(&quot;opacity&quot;, 1)
+	.attr(&quot;class&quot;, &quot;tooltip&quot;)
+	.attr(&quot;class&quot;, &quot;card&quot;)
+	.attr(&quot;class&quot;, &quot;row&quot;)
+	.style(&quot;background-color&quot;, &quot;rgba(0, 0, 0, 0.0)&quot;)
+	.style(&quot;padding&quot;, &quot;10px&quot;)
 </code></pre>
 <p>You can define custom mouseover and mouseleave function to enable interactive visualization</p>
 <pre><code class='language-javascript' lang='javascript'>g.selectAll(&quot;path&quot;)        

@@ -11,7 +11,7 @@
 	<meta name="description" content="Bootstrap based News, Magazine and Blog Theme">
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="../assets/images/favicon.ico">
+	<link rel="shortcut icon" href="../assets/images/logo2.png">
 
 	<!-- Google Font -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -116,6 +116,25 @@ Highlights START -->
 
                         <h2> Usage of GeoJSON and GeoParquet in high-resolution spatial transcriptomics</h2>
                         <p>High-resolution spatial transcriptomics (ST) is a technique that allows researchers to study gene expression in individual cells within a tissue sample. ST data is typically stored as a collection of spatially resolved gene expression profiles, where each profile is associated with a spatial location in the tissue. GeoJSON and GeoParquet formats are commonly used to store and query ST data, as they provide a flexible and efficient way to represent spatial information.</p>
+
+						<p> For example, 10x XOA software will perform cell segmentation and store the cell boundaries at <a href="https://www.10xgenomics.com/cn/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance", target="_blank">cell_boundaries.parquet</a>, while this file is a simple parquet file without geometry objects. We can use the following code to convert it to a GeoParquet file containing Polygons:</p>
+
+						<pre><code class='language-python' lang='python'>
+from shapely.geometry import Polygon, Point
+import pandas as pd
+import geopandas as gpd
+cell_boundaries = pd.read_parquet(
+    "/Volumes/lzxc/10x_Xenium_5k/Xenium_V1_Human_Colon_Cancer_P1_CRC_Add_on_FFPE/" + 
+    "cell_boundaries.parquet"
+)
+cell_boundaries_agg = cell_boundaries.groupby("cell_id").agg({"coords":list})
+polys = list(map(lambda coords: Polygon(coords), cell_boundaries_agg['coords']))
+gdf = gpd.GeoDataFrame(geometry=polys)
+gdf['id'] = list(cell_boundaries_agg.index)
+gdf.to_parquet("cell_boundaries.geoparquet")
+						</code></pre>
+
+						<p> The GeoParquet file can then be used to visualize the cell boundaries </p>
 
                         <h2> Conversion in Python </h2>
                         <p>There are several Python libraries that can be used to convert between GeoJSON and GeoParquet format. One popular library is GeoPandas, which provides a high-level interface for working with geospatial data. The following code snippet shows how to convert between GeoJSON and GeoParquet format using GeoPandas:</p>
